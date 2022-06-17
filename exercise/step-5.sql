@@ -46,7 +46,8 @@ UPDATE campground SET campground_id = 8 WHERE park_id = 4;
  > campground_id 8 should be the id of the campground you just added 'Youghiogheny'
 
 */
-
+INSERT INTO site (site_number, campground_id)
+VALUES (623, 8), (624, 8), (625, 8);
 
 /*
  STEP FIVE: Insert 3 reservations, 1 for each site with the following data:
@@ -57,16 +58,22 @@ UPDATE campground SET campground_id = 8 WHERE park_id = 4;
 ------------------------------------------------------------------------------------
 
 */
+INSERT INTO reservation (site_id, name, from_date, to_date)
+VALUES (623, 'Wayne Family', (CURRENT_DATE + 10), (CURRENT_DATE + 20)), 
+(624, 'Parker Family', (CURRENT_DATE + 11), (CURRENT_DATE + 20)),
+(625, 'Kent Family', (CURRENT_DATE + 12), (CURRENT_DATE + 20));
 
 
 /*
  STEP SIX: The Wayne Family called and asked if they could change their reservation to today. Update the from_date to today and the to_date to a week from today.
 
  */
+UPDATE reservation SET from_date = CURRENT_DATE WHERE name = 'Wayne Family';
+UPDATE reservation SET to_date = CURRENT_DATE + 7 WHERE name = 'Wayne Family';
 
 
 /*
  STEP SEVEN: The Kent family called and they would like to cancel their reservation. Delete the reservation for Kent Family.
 
 */
-
+DELETE FROM reservation WHERE name = 'Kent Family';
