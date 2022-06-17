@@ -37,10 +37,25 @@ WHERE
     Cuyahoga Valley	The Unnamed Primitive Campsites	5
   -------------------------------------------------
 */
-
+SELECT 
+	p.name, c.name, COUNT(site_id) AS number_of_sites
+FROM
+	park AS p
+	JOIN campground AS c ON p.park_id = c.park_id
+	JOIN site AS s ON c.campground_id = s.campground_id
+GROUP BY p.name, c.name
+ORDER BY
+	p.name;
 
 -- select site number, reservation name, reservation from and to date ordered by reservation from date
-
+SELECT
+	site_number, r.name, from_date, to_date
+FROM
+	site AS s
+	JOIN reservation AS r ON s.site_id = r.site_id
+ORDER BY
+	from_date;
+	
 
 
 /*
@@ -55,6 +70,15 @@ WHERE
     Juniper Group Site	4
   -------------------------------------------------
 */
+SELECT
+	c.name, COUNT(reservation_id) AS total_reservations
+FROM
+	campground AS c
+	JOIN site AS s ON c.campground_id = s.campground_id
+	JOIN reservation AS r ON s.site_id = r.site_id
+GROUP BY c.name
+ORDER BY
+	total_reservations DESC;
 
 
 
